@@ -48,24 +48,31 @@ namespace AddressBookSearch
             using StreamReader reader = new StreamReader("address-book.txt");
             // Reset the results textbox.
             resultsTextBox.Text = "";
-            do
+            if (string.IsNullOrWhiteSpace(searchTextBox.Text))
             {
-                // read each line of the file
-                string record = reader.ReadLine();
-                // If the line contains the text the reader enters into the search box (ignoring case),
-                if (record.Contains(searchTextBox.Text, StringComparison.InvariantCultureIgnoreCase))
+                resultsTextBox.Text = "Please enter a search term";
+            }
+            else
+            {
+                do
                 {
-                    // then append it to the results textbox on its own line.
-                    resultsTextBox.Text += record;
-                    resultsTextBox.AppendText(Environment.NewLine);
-                }
-                // ...until the end of the file is reached.
-            } while (!reader.EndOfStream);
+                    // read each line of the file
+                    string record = reader.ReadLine();
+                    // If the line contains the text the reader enters into the search box (ignoring case),
+                    if (record.Contains(searchTextBox.Text, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        // then append it to the results textbox on its own line.
+                        resultsTextBox.Text += record;
+                        resultsTextBox.AppendText(Environment.NewLine);
+                    }
+                    // ...until the end of the file is reached.
+                } while (!reader.EndOfStream);
 
-            // Write a message to the user if the results textbox text remains empty.
-            if (resultsTextBox.Text == "")
-            {
-                resultsTextBox.Text = "No matching record was found.";
+                // Write a message to the user if the results textbox text remains empty.
+                if (resultsTextBox.Text == "")
+                {
+                    resultsTextBox.Text = "No matching record was found.";
+                }
             }
         }
     }
