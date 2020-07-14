@@ -14,6 +14,7 @@ namespace AddressBookSearch
 {
     public partial class Form1 : Form
     {
+        // Create a new entry list with some sample data.
         readonly List<Entry> entryList = new List<Entry>()
         {
             new Entry {FirstName = "Jeff", LastName = "Bezos", PhoneNumber = "0193857482" },
@@ -29,28 +30,43 @@ namespace AddressBookSearch
         };
         public Form1()
         {
+            // Add entries from our sample list to a new text file on initializing the form.
             InitializeComponent();
             AddEntries(entryList, "address-book.txt");
         }
 
         internal void AddEntries(List<Entry> fromEntryList, string toFile)
         {
-            // Create a file with the name passed in as a string parameter, and a StreamWriter object to write to it. 
+            // Create a file with the file name passed in as a string parameter, and a StreamWriter object to write to it. 
             using StreamWriter writer = CreateText(toFile);
             // With the StreamWriter, for each entry in the entry list passed in...
             fromEntryList.ForEach(entry =>
             {
                 // ...write that entry's name and phone number to the file on a single line.
-                writer.WriteLine($"{entry.FirstName} {entry.LastName}, \t*{entry.PhoneNumber}*");
+                writer.WriteLine($"{entry.FirstName} {entry.LastName}, \t{entry.PhoneNumber}");
             });
         }
 
+        // On clicking the search button...
         private void searchButton_Click(object sender, EventArgs e)
         {
+            // Create a streamreader object with which to read the address-book.txt file
             using StreamReader reader = new StreamReader("address-book.txt");
-            resultsTextBox.Text = reader.ReadToEnd();
-                
-//                ReadAllLines("address-book.txt").ToString();//.SkipWhile(line => !line.Contains(searchTextBox.Text)).ToString();
+            // Reset the results textbox.
+            resultsTextBox.Text = "";
+            do
+            {
+                // read each line of the file
+                string record = reader.ReadLine();
+                // If the line contains the text the reader enters into the search box,
+                if (record.Contains(searchTextBox.Text))
+                {
+                    // then append it to the results textbox on its own line.
+                    resultsTextBox.Text += record;
+                    resultsTextBox.AppendText(Environment.NewLine);
+                }
+                // ...until the end of the file is reached.
+            } while (!reader.EndOfStream);                
         }
     }
 }
