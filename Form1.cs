@@ -52,8 +52,8 @@ namespace AddressBookSearch
             {
                 // read each line of the file
                 string record = reader.ReadLine();
-                // If the line contains the text the reader enters into the search box,
-                if (record.Contains(searchTextBox.Text))
+                // If the line contains the text the reader enters into the search box (ignoring case),
+                if (record.Contains(searchTextBox.Text, StringComparison.InvariantCultureIgnoreCase))
                 {
                     // then append it to the results textbox on its own line.
                     resultsTextBox.Text += record;
