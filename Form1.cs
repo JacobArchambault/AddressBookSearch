@@ -1,21 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using static System.IO.File;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.IO.File;
 
 namespace AddressBookSearch
 {
     public partial class Form1 : Form
     {
         // Create a new entry list with some sample data.
-        readonly List<Entry> entryList = new List<Entry>()
+        private readonly List<Entry> entryList = new List<Entry>()
         {
             new Entry {FirstName = "Jeff", LastName = "Bezos", PhoneNumber = "0193857482" },
             new Entry {FirstName = "Bill", LastName = "Gates", PhoneNumber = "1059476859"},
@@ -66,7 +60,7 @@ namespace AddressBookSearch
                     resultsTextBox.AppendText(Environment.NewLine);
                 }
                 // ...until the end of the file is reached.
-            } while (!reader.EndOfStream);                
+            } while (!reader.EndOfStream);
         }
     }
 }

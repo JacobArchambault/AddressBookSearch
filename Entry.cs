@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AddressBookSearch
+﻿namespace AddressBookSearch
 {
-    class Entry
+    internal class Entry
     {
-        internal string FirstName {get; set;}
+        internal string FirstName { get; set; }
         internal string LastName { get; set; }
         internal string PhoneNumber { get; set; }
     }
