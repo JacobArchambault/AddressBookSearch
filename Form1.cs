@@ -61,6 +61,12 @@ namespace AddressBookSearch
                 }
                 // ...until the end of the file is reached.
             } while (!reader.EndOfStream);
+
+            // Write a message to the user if the results textbox text remains empty.
+            if (resultsTextBox.Text == "")
+            {
+                resultsTextBox.Text = "No matching record was found.";
+            }
         }
     }
 }
