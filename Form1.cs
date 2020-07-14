@@ -40,12 +40,17 @@ namespace AddressBookSearch
             // With the StreamWriter, for each entry in the entry list passed in...
             fromEntryList.ForEach(entry =>
             {
-                // ...get the entry number
-                int entryNumber = fromEntryList.IndexOf(entry);
-                // ...and write that entry's number, name, address, and phone number to the file on a single line.
-                writer.WriteLine($"Entry {entryNumber + 1}:\t{entry.FirstName} {entry.LastName}, \t*{entry.PhoneNumber}*");
+                // ...write that entry's name and phone number to the file on a single line.
+                writer.WriteLine($"{entry.FirstName} {entry.LastName}, \t*{entry.PhoneNumber}*");
             });
         }
 
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+            using StreamReader reader = new StreamReader("address-book.txt");
+            resultsTextBox.Text = reader.ReadToEnd();
+                
+//                ReadAllLines("address-book.txt").ToString();//.SkipWhile(line => !line.Contains(searchTextBox.Text)).ToString();
+        }
     }
 }
